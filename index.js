@@ -1,11 +1,40 @@
+const fs = require('fs')
+const path = require('path')
 const input = require('./modules/input/input')
 const exchange = require('./modules/exchange/exchange')
 const parser = require('./modules/parser/parser')
 
-class Main{
-    constructor(){
+module.exports = class Main{
+    constructor(pathTemplate, pathData, pathOutput){
         this.arqModel = null
         this.arqJson = null
+
+        this.loadModel(pathTemplate)
+        this.loadData(pathData)
+
+        this.createJSON()
+        .then((json)=>{
+            let realativePath = path.join(pathOutput,'out.json')
+            fs.writeFile(realativePath, json, function(erro) {
+                if(erro) {
+                    throw erro;
+                }
+                console.log("modelo json criado");
+            }); 
+        })
+
+
+        this.replace()
+        .then((finalArq)=>{
+            let realativePath = path.join(pathOutput,'out.model')
+            fs.writeFile(realativePath, finalArq, function(erro) {
+                if(erro) {
+                    throw erro;
+                }
+                console.log("arquivo final criado");
+            }); 
+        })
+        
     }
     loadModel(path){
         this.arqModel = new input(path);
@@ -36,26 +65,3 @@ class Main{
     }
 
 }
-
-let main = new Main()
-main.loadModel('./model/mode1.fodt')
-main.loadData('./model/mode1.json')
-/*
-main.createJSON()
-.then((json)=>{
-    console.log(json)
-})
-*/
-
-
-const fs = require('fs')
-main.replace()
-.then((finalArq)=>{
-    fs.writeFile('./model/final.fodt',finalArq, function(erro) {
-        if(erro) {
-            throw erro;
-        }
-        console.log("Arquivo criado");
-    }); 
-
-})
