@@ -37,16 +37,25 @@ class Main{
 
 }
 
-
 let main = new Main()
 main.loadModel('./model/mode1.fodt')
 main.loadData('./model/mode1.json')
+/*
 main.createJSON()
-.then((data)=>{
-    console.log(data)
+.then((json)=>{
+    console.log(json)
 })
+*/
 
+
+const fs = require('fs')
 main.replace()
-.then((data)=>{
-    console.log(data)
+.then((finalArq)=>{
+    fs.writeFile('./model/final.fodt',finalArq, function(erro) {
+        if(erro) {
+            throw erro;
+        }
+        console.log("Arquivo criado");
+    }); 
+
 })
