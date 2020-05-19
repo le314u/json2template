@@ -2,7 +2,8 @@
 module.exports = class Parser{
     constructor(){}
     static getInit(string){
-        let  init = new RegExp(/\$\{(([a-z]|[A-Z])([a-z]|[A-Z])*(\.?([a-z]|[A-Z])([a-z]|[A-Z])*)*)\}/);
+        let  init = new RegExp(/\$\{([a-z]|[A-Z])([a-z]|[A-Z])*(\.([a-z]|[A-Z])([a-z]|[A-Z])*)*\}/);
+
         return string.search(init)
     };
     static getEnd(string, init){
