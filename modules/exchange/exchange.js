@@ -21,10 +21,10 @@ module.exports = class Exchange{
     }
 
     static exchange(string, tokens, nameSpace){
-        console.log(tokens)
         for ( let token of tokens){
             let value = this.token2value(token, nameSpace)
-            string = string.replace(token, value)
+            let regex = new RegExp("\\"+token,"g")
+            string = string.replace(regex, value)
         }
         return string
     }
