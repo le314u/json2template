@@ -4,7 +4,7 @@
 
 # Objetivo como Desenvolvedor
 
-* Criar um Api para preenchimento automatico de arquivos genéricos em txt
+* Criar um Aplcaçãoi para preenchimento automatico de arquivos genéricos em txt
 * Aprimorar Granulação do Codigo
 * Desenvolver com nodeJs
 
