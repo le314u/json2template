@@ -5,36 +5,9 @@ const exchange = require('./modules/exchange/exchange')
 const parser = require('./modules/parser/parser')
 
 module.exports = class Main{
-    constructor(pathTemplate, pathData, pathOutput){
+    constructor(){
         this.arqModel = null
         this.arqJson = null
-
-        this.loadModel(pathTemplate)
-        this.loadData(pathData)
-
-        this.createJSON()
-        .then((json)=>{
-            let realativePath = path.join(pathOutput,'out.json')
-            fs.writeFile(realativePath, json, function(erro) {
-                if(erro) {
-                    throw erro;
-                }
-                console.log("modelo json criado");
-            }); 
-        })
-
-
-        this.replace()
-        .then((finalArq)=>{
-            let realativePath = path.join(pathOutput,'out.model')
-            fs.writeFile(realativePath, finalArq, function(erro) {
-                if(erro) {
-                    throw erro;
-                }
-                console.log("arquivo final criado");
-            }); 
-        })
-        
     }
     loadModel(path){
         this.arqModel = new input(path);
@@ -42,16 +15,26 @@ module.exports = class Main{
     loadData(path){
         this.arqJson = new input(path);
     }
-    createJSON(){
+    createJSON(pathInputTemplate, pathOutput){
+        this.loadModel = pathInputTemplate;
         return this.arqModel.content
         .then((content)=>{
             return parser.getToken(content)
         }).then((tokens)=>{
             return exchange.token2json(tokens)
+        }).then((json)=>{
+            fs.writeFile(pathOutput, json, function(erro) {
+                if(erro) {
+                    throw erro;
+                }
+                return `Modelo json salvo em ${pathOutput}`
+            }); 
         })
         
     }
-    replace(){
+    replace(pathInputTemplate, pathInputJson, pathOutput){
+        this.loadData = pathInputJson;
+        this.loadModel = pathInputTemplate;
         return this.arqJson.init
         .then((strJson)=>{
             let json = JSON.parse(strJson)
@@ -59,9 +42,15 @@ module.exports = class Main{
             return this.arqModel.content.then((content)=>{
                 return exchange.exchange(content, tokens, json)
             })
-        })
-        
-        
+        }).then((finalArq)=>{
+            let realativePath = path.join(pathOutput,'out.model')
+            fs.writeFile(realativePath, finalArq, function(erro) {
+                if(erro) {
+                    throw erro;
+                }
+                return `Arquivo final salvo em ${pathOutput}`
+            }); 
+        })     
     }
 
 }
