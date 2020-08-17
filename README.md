@@ -1,5 +1,3 @@
-# engineTemplate
-
 # Tecnologias
 
 * nodeJs
@@ -13,8 +11,3 @@
 # Objetivo como Usuario
 
 * Facilitar a criação de arquivos com templates pre-prontos.
-
-# Como rodar o App
-
-
-# Preparação para usar
