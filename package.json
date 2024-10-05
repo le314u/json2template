@@ -1,12 +1,15 @@
 {
-  "name": "exportTemplate",
+  "name": "liquidjs-boilerplate",
   "version": "1.0.0",
-  "description": "Preenche um arquivo com dados de um JSON",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node ./src/index.js ./model/template.liquid ./model/data.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Lucas Mateus Fernandes",
-  "license": "ISC"
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "liquidjs": "^10.17.0"
+  }
 }

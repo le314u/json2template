@@ -1,0 +1,16 @@
+{
+    "user": {
+        "name": "João Silva",
+        "subscribed": true
+    },
+    "curses": [
+        {
+            "name": "UML",
+            "time": 60
+        },
+        {
+            "name": "IA",
+            "time": 90
+        }
+    ]
+}
